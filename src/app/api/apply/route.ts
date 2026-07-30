@@ -6,7 +6,6 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export async function POST(request: Request) {
   try {
-    // Parse the FormData (handles both text and files)
     const formData = await request.formData();
     
     const name = formData.get("name") as string;
@@ -22,27 +21,23 @@ export async function POST(request: Request) {
 
     let cvUrl = "";
 
-    // If a CV was uploaded, save it to Firebase Storage
+    // Upload PDF to Firebase Storage
     if (cvFile && cvFile.size > 0) {
-      // Create a unique filename so it doesn't overwrite other people's CVs
       const uniqueFileName = `${Date.now()}_${cvFile.name.replace(/\s/g, '_')}`;
       const storageRef = ref(storage, `cvs/${uniqueFileName}`);
       
-      // Upload the file
       await uploadBytes(storageRef, cvFile);
-      
-      // Get the public download URL
       cvUrl = await getDownloadURL(storageRef);
     }
 
-    // Save the text data + CV URL to the Firestore Database
+    // Save to Database
     const docRef = await addDoc(collection(db, "applications"), {
       name,
       email,
       jobTitle,
       workPreference,
       requirements,
-      cvUrl, // This will be blank if they didn't upload one, or a link to the PDF if they did
+      cvUrl, 
       status: "new",
       createdAt: serverTimestamp(),
     });

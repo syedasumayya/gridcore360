@@ -31,7 +31,7 @@ export default function CareersList() {
     setLoading(true);
     
     try {
-      // We MUST use FormData because we are uploading a file (CV)
+      // Use FormData for file upload
       const data = new FormData();
       data.append("name", formData.name);
       data.append("email", formData.email);
@@ -39,12 +39,12 @@ export default function CareersList() {
       data.append("workPreference", formData.workPreference);
       data.append("requirements", formData.requirements);
       if (formData.cv) {
-        data.append("cv", formData.cv); // Append the actual file
+        data.append("cv", formData.cv); 
       }
 
       const res = await fetch('/api/apply', {
         method: 'POST',
-        body: data, 
+        body: data, // No Content-Type header needed for FormData!
       });
 
       if (res.ok) {
@@ -116,6 +116,7 @@ export default function CareersList() {
 
                 <textarea required rows={3} placeholder="Key skills, experience, and why you are a great fit..." value={formData.requirements} onChange={(e) => setFormData({...formData, requirements: e.target.value})} className="w-full bg-dark-800/50 border border-white/5 rounded-lg px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-neon-cyan/50 transition-colors resize-none"></textarea>
                 
+                {/* PDF UPLOAD BOX */}
                 <div>
                   <label className="block text-sm text-slate-400 mb-2">Upload CV / Resume (PDF, DOC)</label>
                   <label className="flex items-center gap-3 w-full bg-dark-800/50 border border-dashed border-white/10 rounded-lg px-4 py-4 cursor-pointer hover:border-neon-cyan/30 transition-colors">
