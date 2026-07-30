@@ -1,3 +1,4 @@
+// 
 "use client";
 
 import { useRef, useState, useEffect } from "react";
@@ -23,8 +24,6 @@ const secondaryStats = [
   { icon: GraduationCap, value: 200, suffix: "+", label: "Students Trained" },
 ];
 
-// FIXED: The red lines were happening here
-// REPLACE YOUR OLD AnimatedCounter WITH THIS EXACT CODE:
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -33,7 +32,7 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   useEffect(() => {
     if (!isInView) return;
 
-    const duration = 2000; // 2 seconds
+    const duration = 2000; 
     const steps = 60;
     const increment = value / steps;
     let current = 0;
@@ -64,10 +63,8 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* 3D Rotating Globe */}
       <HeroGlobe />
       
-      {/* Subtle Color Orbs */}
       <div className="glow-orb w-[800px] h-[800px] bg-electric-blue top-[-300px] left-[-300px] opacity-10" />
       <div className="glow-orb w-[600px] h-[600px] bg-cyan-purple bottom-[-200px] right-[-200px] opacity-10" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-electric-blue/10 blur-[120px] rounded-full pointer-events-none" />
@@ -75,7 +72,6 @@ export default function Hero() {
       <div className="container-custom mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 relative z-10">
         <div className="max-w-5xl mx-auto text-center">
           
-          {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -88,11 +84,10 @@ export default function Hero() {
             </span>
             <span className="text-sm font-medium text-slate-300 flex items-center gap-2">
               <Sparkles size={14} className="text-neon-cyan" />
-              AI-Powered Business Growth
+              AI & BPO-Powered Growth
             </span>
           </motion.div>
 
-          {/* Main Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -101,24 +96,22 @@ export default function Hero() {
           >
             Cybernetic Growth
             <br />
-            <span className="gradient-text">Solutions</span> for the
+            <span className="gradient-text">& BPO Solutions</span> for the
             <br />
             Modern Enterprise
           </motion.h1>
 
-          {/* Subheading */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
             className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-14 leading-relaxed"
           >
-            We integrate AI automation, performance marketing, and advanced
+            We integrate AI automation, elite BPO operations, and advanced
             analytics to transform your business into an intelligent, scalable
             powerhouse.
           </motion.p>
 
-          {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -134,7 +127,6 @@ export default function Hero() {
             </Link>
           </motion.div>
 
-          {/* NEW: Main Stats Row (Big Animated Numbers) */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -154,7 +146,6 @@ export default function Hero() {
             ))}
           </motion.div>
 
-          {/* NEW: Secondary Stats Row (CHANGED TO GRID FOR STRAIGHT LINE) */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -190,7 +181,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Bottom Fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark-900 to-transparent pointer-events-none" />
     </section>
   );

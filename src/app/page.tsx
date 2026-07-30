@@ -7,6 +7,7 @@ import Process from "@/components/sections/Process";
 import CaseStudy from "@/components/sections/CaseStudy";
 import Testimonials from "@/components/sections/Testimonials";
 
+
 import Footer from "@/components/layout/Footer";
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
       <Process />
       <CaseStudy />
       <Testimonials />
+      
       <Footer />
     </main>
   );

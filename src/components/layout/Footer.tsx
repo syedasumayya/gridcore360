@@ -23,6 +23,7 @@ const footerLinks = {
   ],
   services: [
     { name: "AI Automation", href: "/services" },
+    { name: "BPO & Global Support", href: "/services" },
     { name: "SEO & AEO", href: "/services" },
     { name: "Performance Marketing", href: "/services" },
     { name: "Web Development", href: "/services" },
@@ -54,9 +55,9 @@ export default function Footer() {
       <div className="container-custom mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 items-start">
           
-          {/* Left Column - Logo aligned with headings, no empty gaps */}
+          {/* Left Column - Logo & US Contact Info Only */}
           <div className="lg:col-span-2">
-                       <Image
+            <Image
               src="/images/logo1.png"
               alt="GridCore360"
               width={500}
@@ -68,7 +69,7 @@ export default function Footer() {
               into intelligent, automated, and scalable operations.
             </p>
             
-            {/* Contact Info directly under paragraph */}
+            {/* US Contact Info directly under paragraph */}
             <div className="space-y-3 text-sm text-slate-400 mt-6">
               <div className="flex items-center gap-3">
                 <Mail size={16} className="text-neon-cyan flex-shrink-0" />
@@ -76,11 +77,11 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 <Phone size={16} className="text-neon-cyan flex-shrink-0" />
-                <span>+1 (555) 360-0000</span>
+                <span>+1 703 2234563</span>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin size={16} className="text-neon-cyan flex-shrink-0" />
-                <span>San Francisco, CA</span>
+                <span>45541 Hutchens Sq, 20166</span>
               </div>
             </div>
           </div>

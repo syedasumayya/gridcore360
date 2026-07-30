@@ -1,7 +1,8 @@
+// 
 "use client";
 
 import { motion } from "framer-motion";
-import { Bot, Target, Code2, CheckCircle2 } from "lucide-react";
+import { Bot, Target, Code2, Headphones, CheckCircle2 } from "lucide-react"; // Added Headphones
 import AnimateIn from "@/components/ui/AnimateIn";
 
 const coreServices = [
@@ -10,7 +11,14 @@ const coreServices = [
     title: "AI Automation",
     desc: "Eliminate manual bottlenecks. We engineer intelligent workflows that operate 24/7, reducing human error and scaling your operations without scaling your headcount.",
     features: ["Custom LLM Integrations", "Predictive Lead Scoring", "Automated Customer Onboarding", "Intelligent Data Routing"],
-    visual: "ai" // Type of fake UI to show
+    visual: "ai" 
+  },
+  {
+    icon: Headphones, // <-- ADDED BPO HERE
+    title: "BPO & Global Support",
+    desc: "Outsource operations to our elite global support team. We handle customer service, technical support, and back-office operations so you can focus on core growth.",
+    features: ["24/7 Multichannel Support", "Dedicated Offshore Teams", "Quality Assurance (QA) Protocols", "Scalable Ticketing Systems"],
+    visual: "bpo"
   },
   {
     icon: Target,
@@ -44,6 +52,43 @@ function FakeVisual({ type }: { type: string }) {
       </div>
     );
   }
+  
+  // <-- ADDED BPO VISUAL HERE
+  if (type === "bpo") {
+    return (
+      <div className="glass-strong rounded-xl p-5 h-full border border-white/5 relative overflow-hidden">
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-xs text-slate-500">Active Agents</span>
+          <span className="text-xs text-neon-cyan font-mono bg-neon-cyan/10 px-2 py-0.5 rounded">Online</span>
+        </div>
+        <div className="space-y-3">
+          <div className="flex items-center justify-between glass rounded-lg p-3">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-full bg-neon-cyan/20 flex items-center justify-center text-[8px] text-neon-cyan">JD</div>
+              <span className="text-xs text-slate-300">John D.</span>
+            </div>
+            <div className="w-16 h-1.5 bg-dark-600 rounded-full"><div className="w-3/4 h-full bg-neon-cyan rounded-full"></div></div>
+          </div>
+          <div className="flex items-center justify-between glass rounded-lg p-3">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-full bg-electric-blue/20 flex items-center justify-center text-[8px] text-electric-blue">SK</div>
+              <span className="text-xs text-slate-300">Sarah K.</span>
+            </div>
+            <div className="w-16 h-1.5 bg-dark-600 rounded-full"><div className="w-1/2 h-full bg-electric-blue rounded-full"></div></div>
+          </div>
+          <div className="flex items-center justify-between glass rounded-lg p-3">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-full bg-cyber-purple/20 flex items-center justify-center text-[8px] text-cyber-purple">MR</div>
+              <span className="text-xs text-slate-300">Mike R.</span>
+            </div>
+            <div className="w-16 h-1.5 bg-dark-600 rounded-full"><div className="w-full h-full bg-cyber-purple rounded-full"></div></div>
+          </div>
+        </div>
+        <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-electric-blue/10 blur-[40px]" />
+      </div>
+    );
+  }
+
   if (type === "marketing") {
     return (
       <div className="glass-strong rounded-xl p-5 h-full border border-white/5 relative overflow-hidden">
@@ -115,7 +160,7 @@ export default function ServicesCore() {
             <div className="relative">
               <FakeVisual type={service.visual} />
               {/* Background glow for the visual */}
-              <div className={`absolute -inset-4 blur-3xl opacity-20 pointer-events-none ${i === 0 ? "bg-neon-cyan" : i === 1 ? "bg-electric-blue" : "bg-cyber-purple"}`} />
+              <div className={`absolute -inset-4 blur-3xl opacity-20 pointer-events-none ${i === 0 ? "bg-neon-cyan" : i === 1 ? "bg-electric-blue" : i === 2 ? "bg-cyber-purple" : "bg-neon-cyan"}`} />
             </div>
           </AnimateIn>
 

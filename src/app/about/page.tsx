@@ -3,6 +3,7 @@ import Footer from "@/components/layout/Footer";
 import PageBanner from "@/components/ui/PageBanner";
 import AboutMission from "@/components/sections/AboutMission";
 import OperatingPrinciples from "@/components/sections/OperatingPrinciples";
+import GlobalPresence from "@/components/sections/GlobalPresence"; 
 
 
 export default function AboutPage() {
@@ -23,6 +24,7 @@ export default function AboutPage() {
 
         </div>
       </section>
+      <GlobalPresence />
 
       <Footer />
     </main>
