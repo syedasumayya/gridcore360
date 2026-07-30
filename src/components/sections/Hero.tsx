@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useInView } from "framer-motion"; // Removed the extra imports
+import { motion, useInView } from "framer-motion"; 
 import Link from "next/link";
 import { ArrowRight, Sparkles, GraduationCap, Code2, Server, Globe, UserCheck } from "lucide-react";
 import HeroGlobe from "@/components/ui/HeroGlobe";
@@ -154,13 +154,13 @@ export default function Hero() {
             ))}
           </motion.div>
 
-          {/* NEW: Secondary Stats Row (Glass Boxes with Icons) */}
+          {/* NEW: Secondary Stats Row (CHANGED TO GRID FOR STRAIGHT LINE) */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 overflow-x-auto pb-4"
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto"
           >
             {secondaryStats.map((stat, i) => (
               <motion.div
@@ -170,9 +170,9 @@ export default function Hero() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                className="glass rounded-xl px-5 py-4 sm:px-6 flex items-center gap-3 flex-shrink-0 cursor-default border border-transparent hover:border-neon-cyan/30 hover:shadow-[0_0_20px_rgba(0,212,255,0.15)] transition-all duration-300 group"
+                className="glass rounded-xl px-4 py-4 flex items-center gap-3 cursor-default border border-transparent hover:border-neon-cyan/30 hover:shadow-[0_0_20px_rgba(0,212,255,0.15)] transition-all duration-300 group"
               >
-                <div className="w-10 h-10 rounded-lg glass flex items-center justify-center group-hover:bg-neon-cyan/10 transition-colors">
+                <div className="w-10 h-10 rounded-lg glass flex items-center justify-center group-hover:bg-neon-cyan/10 transition-colors flex-shrink-0">
                   <stat.icon size={18} className="text-neon-cyan transition-transform group-hover:scale-110" />
                 </div>
                 <div className="text-left">

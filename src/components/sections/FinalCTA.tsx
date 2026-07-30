@@ -1,10 +1,50 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, CalendarDays } from "lucide-react";
+import { Send, CalendarDays, Loader2 } from "lucide-react";
 import Link from "next/link";
 
 export default function FinalCTA() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    service: "",
+    message: ""
+  });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    
+    try {
+      const res = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: `${formData.service} - ${formData.company}`,
+          department: formData.service,
+          message: formData.message
+        }),
+      });
+
+      if (res.ok) {
+        setSuccess(true);
+        setFormData({ name: "", email: "", company: "", service: "", message: "" });
+        setTimeout(() => setSuccess(false), 4000);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section id="contact" className="relative py-32 overflow-hidden">
       <div className="container-custom mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -67,13 +107,16 @@ export default function FinalCTA() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.5 }}
                 className="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto"
-                onSubmit={(e) => e.preventDefault()}
+                onSubmit={handleSubmit}
               >
                 <div>
                   <label className="block text-xs text-slate-500 mb-2 font-medium uppercase tracking-wider">Full Name</label>
                   <input
                     type="text"
+                    required
                     placeholder="John Doe"
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
                     className="w-full bg-dark-800/50 border border-white/5 rounded-xl px-4 py-3.5 text-white text-sm placeholder-slate-600 focus:outline-none focus:border-electric-blue/40 focus:bg-dark-800/80 transition-all duration-200"
                   />
                 </div>
@@ -81,7 +124,10 @@ export default function FinalCTA() {
                   <label className="block text-xs text-slate-500 mb-2 font-medium uppercase tracking-wider">Email Address</label>
                   <input
                     type="email"
+                    required
                     placeholder="john@company.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
                     className="w-full bg-dark-800/50 border border-white/5 rounded-xl px-4 py-3.5 text-white text-sm placeholder-slate-600 focus:outline-none focus:border-electric-blue/40 focus:bg-dark-800/80 transition-all duration-200"
                   />
                 </div>
@@ -90,12 +136,18 @@ export default function FinalCTA() {
                   <input
                     type="text"
                     placeholder="Your Company Name"
+                    value={formData.company}
+                    onChange={(e) => setFormData({...formData, company: e.target.value})}
                     className="w-full bg-dark-800/50 border border-white/5 rounded-xl px-4 py-3.5 text-white text-sm placeholder-slate-600 focus:outline-none focus:border-electric-blue/40 focus:bg-dark-800/80 transition-all duration-200"
                   />
                 </div>
                 <div>
                   <label className="block text-xs text-slate-500 mb-2 font-medium uppercase tracking-wider">Service Interested In</label>
-                  <select className="w-full bg-dark-800/50 border border-white/5 rounded-xl px-4 py-3.5 text-slate-400 text-sm focus:outline-none focus:border-electric-blue/40 focus:bg-dark-800/80 transition-all duration-200 appearance-none">
+                  <select 
+                    value={formData.service}
+                    onChange={(e) => setFormData({...formData, service: e.target.value})}
+                    className="w-full bg-dark-800/50 border border-white/5 rounded-xl px-4 py-3.5 text-slate-400 text-sm focus:outline-none focus:border-electric-blue/40 focus:bg-dark-800/80 transition-all duration-200 appearance-none"
+                  >
                     <option value="">Select a service</option>
                     <option value="ai">AI Automation</option>
                     <option value="marketing">Performance Marketing</option>
@@ -106,8 +158,11 @@ export default function FinalCTA() {
                 <div className="md:col-span-2">
                   <label className="block text-xs text-slate-500 mb-2 font-medium uppercase tracking-wider">Project Details</label>
                   <textarea
+                    required
                     rows={4}
                     placeholder="Tell us briefly about your project goals..."
+                    value={formData.message}
+                    onChange={(e) => setFormData({...formData, message: e.target.value})}
                     className="w-full bg-dark-800/50 border border-white/5 rounded-xl px-4 py-3.5 text-white text-sm placeholder-slate-600 focus:outline-none focus:border-electric-blue/40 focus:bg-dark-800/80 transition-all duration-200 resize-none"
                   ></textarea>
                 </div>
@@ -117,9 +172,14 @@ export default function FinalCTA() {
                     <CalendarDays size={16} />
                     <span>Or schedule directly via calendar</span>
                   </Link>
-                  <button type="submit" className="btn-primary text-sm px-8 py-3.5 !rounded-full group w-full sm:w-auto">
-                    <span>Send Message</span>
-                    <Send size={16} className="relative z-10 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <button 
+                    type="submit" 
+                    disabled={loading}
+                    className="btn-primary text-sm px-8 py-3.5 !rounded-full group w-full sm:w-auto"
+                  >
+                    <span>{loading ? "Sending..." : success ? "Message Sent!" : "Send Message"}</span>
+                    {!loading && !success && <Send size={16} className="relative z-10 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />}
+                    {loading && <Loader2 size={16} className="relative z-10 animate-spin" />}
                   </button>
                 </div>
               </motion.form>

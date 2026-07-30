@@ -3,7 +3,7 @@ import Footer from "@/components/layout/Footer";
 import PageBanner from "@/components/ui/PageBanner";
 import AboutMission from "@/components/sections/AboutMission";
 import OperatingPrinciples from "@/components/sections/OperatingPrinciples";
-import AboutTeam from "@/components/sections/AboutTeam";
+
 
 export default function AboutPage() {
   return (
@@ -20,7 +20,7 @@ export default function AboutPage() {
         <div className="container-custom mx-auto space-y-8"> {/* TIGHTENED */}
           <AboutMission />
           <OperatingPrinciples />
-          <AboutTeam />
+
         </div>
       </section>
 
